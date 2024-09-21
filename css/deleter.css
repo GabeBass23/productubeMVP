@@ -1,0 +1,4 @@
+/* For getting rid of stuff .ytd-rich-grid-renderer,   #contentContainer*/
+#related, #scrim,  #guide,  #guide-button, .ytp-endscreen-content, .ytp-ce-element   {
+    display: none !important;
+}

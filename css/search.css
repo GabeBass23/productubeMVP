@@ -1,0 +1,11 @@
+#chips, .ytd-reel-shelf-renderer{
+    display: none !important;
+}
+
+ytd-shelf-renderer:nth-child(n + 1) {
+    display: none !important;
+}
+
+ytd-video-renderer:nth-child(n + 20) {
+    display: none !important;
+}

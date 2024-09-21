@@ -1,0 +1,19 @@
+ytd-app{
+    --ytd-persistent-guide-width: 72px !important;
+    --ytd-mini-guide-width: 72px !important;
+}
+
+#primary{
+    max-width: 100% !important;
+}
+
+div.ytd-mini-guide-entry-renderer {
+    display: inline-block;
+    position: relative;
+    background-color: 0f0f0f;
+    border-radius: 10px;
+}
+
+.title.ytd-mini-guide-entry-renderer {
+    color: white !important;
+}
