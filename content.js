@@ -126,7 +126,6 @@ if(typeof deleteComplete === 'undefined'){
 
     } //youtube home
   } //deleteComplete
-  calcCurrentSessions();
   deleteComplete();
   setTimeout(deleteComplete, 500);
   setTimeout(deleteComplete, 1000);
@@ -134,7 +133,6 @@ if(typeof deleteComplete === 'undefined'){
   setTimeout(deleteComplete, 5000);
 } //define deleteComplete
 else{ //runs deleteComplete again
-  calcCurrentSessions();
   deleteComplete();
   setTimeout(deleteComplete, 500);
   setTimeout(deleteComplete, 1000);
