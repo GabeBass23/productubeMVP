@@ -28,7 +28,7 @@
 }
 
 .categories{
-    margin-top: 10px;
+    margin: 15px 0px 20px;;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -50,20 +50,22 @@ input[type=checkbox], input[type=radio] {
 
 .catTitle{
     color: white;
-    align-self: center;
+    /* align-self: center; */
     text-decoration: underline;
 }
 
 /* Button for locked mode */
 
+.lockContainer{
+    display: flex;
+    align-items: center;
+}
+
 .lockBlock{
-    margin-top: 20px;
-    background-color:orange;
+    margin-left: 10px;
     color: white;
     font-size: 20px;
     width: 200px;
-    border-radius: 50px;
-    outline: none;
 }
 
 /* This section is for the YouTube style Lock Block button */
