@@ -158,6 +158,10 @@ function addExtensionSettingsPage(){
                 newGrid.innerHTML = html;
 
                 browseGrid.append(newGrid);
+                document.querySelector('.toggle-container').addEventListener('click', function() {
+                  this.classList.toggle('active');
+                });
+              
                 blockMode(true);
 
               }
