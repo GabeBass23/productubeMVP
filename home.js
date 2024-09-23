@@ -138,6 +138,31 @@ function newButton(name, classes){
 //=============================================================================================//
 // old system
 
+// Wrap chrome.storage.sync.get in a promise
+// Wrap chrome.storage.sync.get in a promise and set the value if it doesn't exist
+function getStorageData(key, defaultValue = []) {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.get({ [key]: defaultValue }, (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        // If the key is not in memory, set it to the defaultValue
+        if (result[key] === defaultValue) {
+          chrome.storage.sync.set({ [key]: defaultValue }, () => {
+            if (chrome.runtime.lastError) {
+              reject(chrome.runtime.lastError);
+            } else {
+              resolve(defaultValue);
+            }
+          });
+        } else {
+          resolve(result[key]);
+        }
+      }
+    });
+  });
+}
+
 //=============================================================================================//
 //has big html dump
 
@@ -150,7 +175,8 @@ function addExtensionSettingsPage(){
 
         const partialUrl = chrome.runtime.getURL('html/homepageStruct.html');
 
-        let chansBlock = [];
+        // testing only
+        chrome.storage.sync.set({'blockActive': false});
 
         fetch(partialUrl)
             .then(response => response.text())
@@ -158,25 +184,89 @@ function addExtensionSettingsPage(){
                 newGrid.innerHTML = html;
 
                 browseGrid.append(newGrid);
-                document.querySelector('.toggle-container').addEventListener('click', function() {
-                  this.classList.toggle('active');
-                });
-              
-                blockMode(true);
+                /// load the current settings here ******************************************************
+                displaySettings();
+                blockMode();
+                lockBlock();
 
               }
             ).catch(error => console.error('Error loading partial HTML:', error));
   }
 }
 
-function blockMode(blockActive){
-  document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
-    console.log(checkbox);
+function blockMode(){
+  document.querySelectorAll('.cat').forEach(function(checkbox) {
       checkbox.addEventListener('click', function(event) {
-          // If blockActive is true and the checkbox is already checked, prevent unchecking
-          if (blockActive && checkbox.checked === false) {
-              event.preventDefault();
+        // Prevents users from changing settings in block mode
+        event.preventDefault();
+        getStorageData('blockActive', false).then((data) => {
+          // Is useful for setting state of checkbox
+          let num = parseInt(checkbox.id.match(/\d+/)[0], 10); // Extracts the first sequence of digits
+
+          if(!data){
+            checkbox.checked = !checkbox.checked;
+            saveCheckboxState(num, checkbox.checked);
           }
+          else if(data && checkbox.checked === true){
+            event.preventDefault();
+          }
+          else{
+            checkbox.checked = true;
+            saveCheckboxState(num, true);
+          }
+        }).catch((error) => {
+          console.error('Error:', error);
+        });
       });
   });
+}
+
+function lockBlock(){
+  document.querySelector('.toggle-container').addEventListener('click', function(event) {
+    getStorageData('blockActive', false).then((data) => {
+      if(data){
+        event.preventDefault();
+      }
+      else{
+        chrome.storage.sync.set({'blockActive': true});
+        //////////////////////////////////////////////////////////////////alerts before the toggle
+        this.classList.toggle('active');
+      }
+    }).catch((error) => {
+      console.error('Error:', error);
+    });
+  });
+}
+
+function saveCheckboxState(checkboxId, isChecked) {
+  chrome.storage.sync.get('catsBlocked', (result) => {
+    let catsBlocked = result.catsBlocked || {};
+    catsBlocked[checkboxId-1] = isChecked;
+    chrome.storage.sync.set({ catsBlocked });
+  });
+}
+
+
+function displaySettings(){
+  chrome.storage.sync.get('blockActive', (result) => {
+    if(result.blockActive){
+      document.querySelector('.toggle-container').classList.toggle('active');
+    }
+  });
+
+  chrome.storage.sync.get('catsBlocked', (result) => {
+    const catsBlocked = result.catsBlocked || Array(15).fill(false);
+    console.log(catsBlocked);
+    // Update the UI with the stored states
+    for (let i = 1; i <= 15; i++) {
+      const checkbox = document.getElementById(`checkbox${i}`);
+      if (checkbox) {
+        checkbox.checked = catsBlocked[i-1];
+      }
+    }
+  });
+  
+
+  
+
 }

@@ -1,16 +1,19 @@
 // Wrap chrome.storage.local.get in a promise
-function getStorageData(key) {
+function getStorageData(key, defaultValue = []) {
   return new Promise((resolve, reject) => {
-      chrome.storage.local.get({[key]: []}).then((result) => {
-          if (chrome.runtime.lastError) {
-              reject(chrome.runtime.lastError);
-          } else {
-              resolve(result[key]);
-          }
-      });
+    chrome.storage.local.get({ [key]: defaultValue }).then((result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError);
+      } else {
+        resolve(result[key]);
+      }
+    });
   });
 }
 
+function checkCategory(){
+  
+}
 
 function getChannels(){
             // is this included elsewhere?
