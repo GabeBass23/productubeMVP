@@ -1,7 +1,7 @@
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
     if(changeInfo.status === 'loading' && tab.url?.includes("youtube.com/watch")){
         chrome.scripting.executeScript({
-            files: ['watch.js', 'calcCurrentSession.js', 'categories.js'],
+            files: ['categories.js', 'content.js'],
             target: {tabId: tab.id}
         })
         //add settings here
@@ -41,10 +41,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
         });
     }
     else if(changeInfo.status == 'complete' && tab.url?.includes("youtube.com")){
-        chrome.scripting.executeScript({
-            files: ['watch.js','home.js', 'content.js'],
-            target: {tabId: tab.id}
-        })
+        // chrome.scripting.executeScript({
+        //     files: ['home.js', 'content.js'],
+        //     target: {tabId: tab.id}
+        // })
     }
     if (changeInfo.status === 'complete' && tab.url?.includes("youtube.com/results")){
         chrome.scripting.executeScript({

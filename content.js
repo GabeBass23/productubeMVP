@@ -1,9 +1,9 @@
-//main function hi
+//main function
 if(typeof deleteComplete === 'undefined'){
   const deleteComplete = function(){
-    // console.log(activeList, isBlocklist, activeBlocklists, activeWhitelists, activeChannels);
     if(document.location.href.includes("youtube.com/watch")){
-      getChannels();
+      document.querySelector('ytd-mini-guide-renderer').hidden = true;
+      checkCategory();
 
       const suggestions = document.getElementById('related');
       if (suggestions) {
@@ -18,7 +18,6 @@ if(typeof deleteComplete === 'undefined'){
       let primary = document.getElementById('primary');
       if(primary){
         primary.style.width = "100%";
-        //primary.style.maxWidth = "100%";
       }
 
       let miniPlayer = document.getElementsByClassName('ytp-miniplayer-button ytp-button');
@@ -34,7 +33,7 @@ if(typeof deleteComplete === 'undefined'){
         nextButton[0].remove();
       }
 
-      //this code is good
+      // prevents autoplay at the end of videos
       for(i = 0; i < autoButton.length; ++i){
         if(autoButton[i].getElementsByClassName('ytp-autonav-toggle-button-container').length > 0){
           if(autoButton[i].getAttribute('title') === "Autoplay is on"){
@@ -45,6 +44,7 @@ if(typeof deleteComplete === 'undefined'){
         }
       }
       
+      // removes autoplay button
       if(autoPlay.length === 1){
         autoPlay[0].remove();
       }
@@ -81,7 +81,6 @@ if(typeof deleteComplete === 'undefined'){
             }
           }
         }
-        
       }
       //end fixes navbar
 
@@ -91,7 +90,9 @@ if(typeof deleteComplete === 'undefined'){
           if(document.getElementsByClassName("extension_options_grid").length === 0){
             addExtensionSettingsPage();
           }
+          navegationBar.hidden = false;
         }
+        
         // the following is currently useless but could be revisited when 
         // there is an option to show suggested on the homescreen
         // else{

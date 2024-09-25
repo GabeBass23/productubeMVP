@@ -1,69 +1,64 @@
-// document.getElementById('findPair').addEventListener('click', () => {
-//     getPageSource().then(data => {
-//         if (data) {
-//         const scriptContent = extractScriptContent(data);
-//         console.log(scriptContent);
-//         const keyToFind = 'category'; // replace with your specific key
-//         const valueToFind = 'catType'; // replace with your specific value
-
-//         const result = searchForKeyValuePair(scriptContent, keyToFind, valueToFind);
-//         document.getElementById('result').textContent = result ? result.join('\n') : 'No matches found';
-//         }
-//     });
-// });
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-getPageSource().then(data => {
-    if (data) {
-    const scriptContent = extractScriptContent(data);
-    console.log(scriptContent);
-    const keyToFind = 'category'; // replace with your specific key
-    const valueToFind = 'Sports'; // replace with your specific value
-
-    const result = searchForKeyValuePair(scriptContent, keyToFind, valueToFind);
-    const stuffs = result ? result.join('\n') : 'No matches found';
-    console.log(stuffs);
-    document.getElementById('result').textContent = result ? result.join('\n') : 'No matches found';
-    }
-});
-
-// getPageSource().then(data => {
-//     if(data){
-//         console.log(data);
-//     }
-//     console.log('ppoo')
-// });
-  
-function getPageSource() {
-return fetch(window.location.href)
-    .then(response => response.text())
-    .then(source => source)
-    .catch(error => {
-    console.error('Error fetching page source:', error);
-    return null;
+// Wrap chrome.storage.local.get in a promise
+function getStorageData(key, defaultValue = []) {
+    return new Promise((resolve, reject) => {
+      chrome.storage.sync.get({ [key]: defaultValue }).then((result) => {
+        if (chrome.runtime.lastError) {
+          reject(chrome.runtime.lastError);
+        } else {
+          resolve(result[key]);
+        }
+      });
     });
 }
 
-function extractScriptContent(html) {
-const parser = new DOMParser();
-const doc = parser.parseFromString(html, 'text/html');
-const scriptTags = doc.querySelectorAll('script');
 
-let scriptContent = '';
-scriptTags.forEach(tag => {
-    scriptContent += tag.innerHTML + '\n';
-});
+function checkCategory(){
+    getPageSource().then(data => {
+        if (data) {
+            const scriptContent = extractScriptContent(data);
+            const keyToFind = 'category'; // replace with your specific key
+        
+            const result = searchForKey(scriptContent, keyToFind);
+            let stuffs = result ? result : 'No matches found';
+            stuffs = stuffs.replace(/\\u0026/g, '&');
 
-return scriptContent;
+            getStorageData('catsBlocked').then((data) => {
+                getStorageData('categories').then((data2) => {
+                  for (let i = 1; i <= 15; ++i){
+                    console.log(data2[i-1], stuffs, data2[i-1] == stuffs)
+                    if(data[i-1] && data2[i-1] === stuffs){
+                      window.location.href = "https://youtube.com/";
+                    }
+                  }
+                });
+              });
+        }
+    });
+}
+  
+function getPageSource() {
+    return fetch(window.location.href)
+        .then(response => response.text())
+        .then(source => source)
+        .catch(error => {
+        return null;
+        });
 }
 
-function searchForKeyValuePair(scriptContent, key, value) {
-    // const regex = new RegExp(`"${key}"\\s*:\\s*"${value}"`, 'g');
-    // const matches = scriptContent.match(regex);
-    // return matches;
+function extractScriptContent(html) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const scriptTags = doc.querySelectorAll('script');
 
+    let scriptContent = '';
+    scriptTags.forEach(tag => {
+        scriptContent += tag.innerHTML + '\n';
+    });
+
+    return scriptContent;
+}
+
+function searchForKey(scriptContent, key) {
     const regex = new RegExp(`"${key}"\\s*:\\s*"(.*?)"`, 'g');
     const matches = regex.exec(scriptContent);
     console.log(matches[1])
