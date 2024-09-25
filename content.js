@@ -49,6 +49,10 @@ if(typeof deleteComplete === 'undefined'){
         autoPlay[0].remove();
       }
     }
+    else if(document.location.href.includes("youtube.com/shorts")){
+      // blocks shorts entirely
+      window.location.href = "https://youtube.com/";
+    }
     else if(document.location.href.includes("youtube.com")){
       const shorts_nav = document.getElementsByTagName('ytd-mini-guide-entry-renderer');
       const homeGrid = document.querySelector('ytd-rich-grid-renderer');

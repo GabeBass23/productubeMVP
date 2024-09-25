@@ -1,23 +1,21 @@
 {
     "manifest_version": 3,
     "name": "ProducTube",
-    "description": "Limits distractions on YouTube...................",
+    "description": "Limits distractions on YouTube™",
     "version": "1.0",
     "background": {
       "service_worker": "serviceWorker.js"
     },
     "permissions": [
         "scripting",
-        "declarativeNetRequest",
         "activeTab",
-        "tabs",
         "storage"
       ],
     "web_accessible_resources": [{
-      "resources": ["html/homepageStruct.html", "html/sessionButton.html"],
-      "matches": ["<all_urls>"]
+      "resources": ["html/homepageStruct.html"],
+      "matches": ["*://*.youtube.com/*"]
     }],
     "host_permissions": [
-        "<all_urls>"
+        "*://*.youtube.com/*"
     ]
   }

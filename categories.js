@@ -11,7 +11,6 @@ function getStorageData(key, defaultValue = []) {
     });
 }
 
-
 function checkCategory(){
     getPageSource().then(data => {
         if (data) {
