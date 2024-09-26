@@ -6,3 +6,8 @@
 #primary{
     max-width: 100% !important;
 }
+
+ytd-app{
+    --ytd-persistent-guide-width: 0px !important;
+    --ytd-mini-guide-width: 0px !important;
+}

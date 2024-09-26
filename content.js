@@ -6,7 +6,7 @@ if(typeof deleteComplete === 'undefined'){
     }
     else if(document.location.href.includes("youtube.com/shorts")){
       // blocks shorts entirely
-      // window.location.href = "https://youtube.com/";
+      window.location.href = "https://youtube.com/";
     }
     else if (document.location.href.endsWith("youtube.com/")) {
       // replaces homepage with extension settings

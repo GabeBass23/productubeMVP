@@ -6,14 +6,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
         })
         chrome.scripting.insertCSS({
             target: { tabId: tab.id },
-            files: ["css/block_mode.css"]
+            files: ['css/block_mode.css']
         });
     }
     else if (changeInfo.status === 'loading' && tab.url?.includes("youtube.com/@")) {
         // Check the flag in chrome.storage to see if the page has been reloaded
         chrome.scripting.removeCSS({
             target: { tabId: tab.id },
-            files: ["css/search.css", 'css/grid_off.css']
+            files: ['css/search.css', 'css/grid_off.css']
         });
     }
     else if (changeInfo.status === 'loading' && tab.url?.includes("youtube.com/shorts")) {
