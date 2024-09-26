@@ -51,10 +51,4 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
             target: {tabId: tab.id}
         })
     }
-    if (changeInfo.status === 'complete' && tab.url?.includes("youtube.com/results")){
-        chrome.scripting.executeScript({
-            files: ['search.js'],
-            target: {tabId: tab.id}
-        })
-    }
 })

@@ -3,6 +3,7 @@
 .extension_options_grid{
     display: flex;
     flex-wrap: wrap;
+    background-color: #0f0f0f;
     border-radius: 10px;
     align-items: start;
     justify-content: space-evenly;
@@ -104,15 +105,6 @@
     transform: translateX(16px);
     background-color: #f0050e;
 }
-
-
-/* 
-html, body {
-    max-height: 1000px;
-    overflow: hidden;  
-} 
-*/
-
 
 /* Container for the tooltip */
 .tooltip-container {

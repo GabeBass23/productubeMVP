@@ -9,3 +9,22 @@ ytd-shelf-renderer:nth-child(n + 1) {
 ytd-video-renderer:nth-child(n + 20) {
     display: none !important;
 }
+
+#guide, ytd-mini-guide-renderer{
+    display: none !important;
+}
+
+.ytd-promoted-video-renderer, .ytd-promoted-sparkles-web-renderer, 
+#website-text-container, .ytd-text-image-no-button-layout-renderer{
+    display: none !important;
+}
+
+ytd-search{
+    width: 100%;
+}
+
+ytd-search {
+    max-height: 2000px;
+    overflow: hidden;  
+} 
+
