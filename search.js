@@ -10,12 +10,12 @@ function deleteExtra() {
     var parentElement = document.getElementById("contents"); // Get the parent element by ID
     if (parentElement) {
         var specificTagElements = parentElement.getElementsByTagName("ytd-item-section-renderer");
-    }
 
-    for (var i = 0; i < specificTagElements.length; i++) {
-        var element = specificTagElements[i];
-        if (i > 1){
-            element.style.display = "none";
+        for (var i = 0; i < specificTagElements.length; i++) {
+            var element = specificTagElements[i];
+            if (i > 1){
+                element.style.display = "none";
+            }
         }
     }
 }

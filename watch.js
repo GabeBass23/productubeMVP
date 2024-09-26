@@ -49,39 +49,41 @@ function handleWatch(){
 //===========================================================================//
 //removes endscreen video content
 
-const current = document.getElementsByClassName('html5-video-player');
-  
-const obs = new MutationObserver(callback);
+if(typeof obs === 'undefined'){
+    const current = document.getElementsByClassName('html5-video-player');
 
-function callback (muations) {
-    let endScreen0 = document.getElementsByClassName('ytp-endscreen-content');
-    if(endScreen0.length > 0){
-    endScreen0[0].remove();
+    const obs = new MutationObserver(callback);
+
+    function callback (muations) {
+        let endScreen0 = document.getElementsByClassName('ytp-endscreen-content');
+        if(endScreen0.length > 0){
+        endScreen0[0].remove();
+        }
     }
-}
 
-obs.observe(current[0], {
-    childList: true
-});
-
-//===========================================================================//
-//removes related content
-  
-const below = document.getElementById('below');
-
-const obs2 = new MutationObserver(callback);
-
-function callback (muations) {
-    let endScreen1 = document.getElementById('related');
-    if(endScreen1){
-    endScreen1.remove();
-    }
-}
-
-if(below){
-    obs2.observe(below, {
-    childList: true
+    obs.observe(current[0], {
+        childList: true
     });
 }
 
+
 //===========================================================================//
+//removes related video content
+if(typeof obs2 === 'undefined'){
+    const below = document.getElementById('below');
+
+    const obs2 = new MutationObserver(callback);
+
+    function callback (muations) {
+        let endScreen1 = document.getElementById('related');
+        if(endScreen1){
+        endScreen1.remove();
+        }
+    }
+
+    if(below){
+        obs2.observe(below, {
+        childList: true
+        });
+    }
+}
