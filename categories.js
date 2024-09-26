@@ -24,7 +24,6 @@ function checkCategory(){
             getStorageData('catsBlocked').then((data) => {
                 getStorageData('categories').then((data2) => {
                   for (let i = 1; i <= 15; ++i){
-                    console.log(data2[i-1], stuffs, data2[i-1] == stuffs)
                     if(data[i-1] && data2[i-1] === stuffs){
                       window.location.href = "https://youtube.com/";
                     }
@@ -60,8 +59,6 @@ function extractScriptContent(html) {
 function searchForKey(scriptContent, key) {
     const regex = new RegExp(`"${key}"\\s*:\\s*"(.*?)"`, 'g');
     const matches = regex.exec(scriptContent);
-    console.log(matches[1])
-    
     // If a match is found, return the captured value (in the first capturing group).
     return matches ? matches[1] : null;
 }

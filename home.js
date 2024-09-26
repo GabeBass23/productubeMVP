@@ -133,7 +133,6 @@ function displaySettings(){
 
   chrome.storage.sync.get('catsBlocked', (result) => {
     const catsBlocked = result.catsBlocked || Array(15).fill(false);
-    console.log(catsBlocked);
     // Update the UI with the stored states
     for (let i = 1; i <= 15; i++) {
       const checkbox = document.getElementById(`checkbox${i}`);

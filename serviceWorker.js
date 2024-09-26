@@ -6,7 +6,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
         })
         chrome.scripting.insertCSS({
             target: { tabId: tab.id },
-            files: ["css/block_mode.css", "css/deleter.css"]
+            files: ["css/block_mode.css"]
         });
     }
     else if (changeInfo.status === 'loading' && tab.url?.includes("youtube.com/@")) {
@@ -22,7 +22,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
     else if(changeInfo.status === 'loading' && tab.url?.endsWith("youtube.com/")){
         chrome.scripting.insertCSS({
             target: { tabId: tab.id },
-            files: ["css/generate_home.css", "css/block_mode.css", "css/deleter.css", "css/grid_off.css"]
+            files: ["css/generate_home.css", "css/block_mode.css", "css/grid_off.css"]
         });
     }
     else if (changeInfo.status === 'loading' && tab.url?.includes("youtube.com/results")){
@@ -34,7 +34,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
     else if (changeInfo.status === 'loading' && tab.url?.includes("youtube.com")){
         chrome.scripting.insertCSS({
             target: { tabId: tab.id },
-            files: ["css/block_mode.css", "css/deleter.css"]
+            files: ["css/block_mode.css"]
         });
     }
     if(changeInfo.status == 'complete' && tab.url == "https://www.youtube.com/" || tab.url == "http://www.youtube.com/"){
@@ -42,8 +42,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
             files: ['home.js', 'content.js'],
             target: {tabId: tab.id}
         });
-    }
-    else if (changeInfo.status === 'complete' && tab.url?.includes("youtube.com/@")) {
     }
     else if(changeInfo.status == 'complete' && tab.url?.includes("youtube.com")){
         chrome.scripting.executeScript({
