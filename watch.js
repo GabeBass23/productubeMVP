@@ -45,7 +45,6 @@ function handleWatch(){
     if(sizeButton.length === 1){
         if(sizeButton[0].getAttribute('title') === "Theater mode (t)"){
             sizeButton[0].click();
-            console.log('clicked')
         }
         else{
             sizeButton[0].remove();
